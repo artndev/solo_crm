@@ -1,29 +1,29 @@
 import { useTheme } from '@/hooks/useTheme'
-import { Text, View } from 'react-native'
+import React from 'react'
+import { Image, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Welcome = () => {
+const Splash = () => {
   const { theme } = useTheme()
+
+  console.log(theme)
 
   return (
     <SafeAreaView>
       <View
         className="flex justify-center items-center size-full"
         style={{
-          backgroundColor: theme.bg,
+          backgroundColor: theme.splashBackground,
         }}
       >
-        <Text
-          className="text-2xl font-bold"
-          style={{
-            color: theme.title,
-          }}
-        >
-          Welcome, pal! {'=)'}
-        </Text>
+        <Image
+          className="w-[200px] h-auto"
+          source={theme.splashIcon}
+          resizeMode="contain"
+        />
       </View>
     </SafeAreaView>
   )
 }
 
-export default Welcome
+export default Splash
