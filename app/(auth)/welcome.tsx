@@ -1,27 +1,34 @@
+import Button from '@/components/Button'
+import * as icons from '@/constants/icons'
 import { useTheme } from '@/hooks/useTheme'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Welcome = () => {
   const { theme } = useTheme()
 
   return (
-    <SafeAreaView>
-      <View
-        className="flex justify-center items-center size-full"
+    <SafeAreaView
+      className="flex justify-center items-center size-full"
+      style={{
+        backgroundColor: theme.bg,
+      }}
+    >
+      <Text
+        className="text-2xl font-bold"
         style={{
-          backgroundColor: theme.bg,
+          color: theme.title,
         }}
       >
-        <Text
-          className="text-2xl font-bold"
-          style={{
-            color: theme.title,
-          }}
-        >
-          Welcome, pal! {'=)'}
-        </Text>
-      </View>
+        Welcome, pal! {'=)'}
+      </Text>
+
+      <Button
+        title="Log In"
+        IconLeft={icons.FaceIdIcon}
+        bgVariant="outline"
+        textVariant="secondary"
+      />
     </SafeAreaView>
   )
 }

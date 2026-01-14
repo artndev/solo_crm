@@ -32,7 +32,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/custom/splash-icon-light.png",
+          "image": "./assets/icons/splash-light.png",
           "backgroundColor": "#fff"
         }
       ]

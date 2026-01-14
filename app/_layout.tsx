@@ -1,23 +1,39 @@
 import Splash from '@/components/Splash'
-import { SplashScreen, Stack } from 'expo-router'
+import { Buffer } from 'buffer'
+import { useFonts } from 'expo-font'
+import { Stack } from 'expo-router'
+import * as SplashScreen from 'expo-splash-screen'
 import { useEffect, useState } from 'react'
 import 'react-native-reanimated'
 import './global.css'
 
+// Buffer polyfill
+global.Buffer = Buffer
+
 SplashScreen.preventAutoHideAsync()
 
 export const RootLayout = () => {
+  const [loaded] = useFonts({
+    'SFPro-Regular': require('../assets/fonts/SFPro-Regular.otf'),
+    'SFPro-Bold': require('../assets/fonts/SFPro-Bold.otf'),
+    'SFPro-Medium': require('../assets/fonts/SFPro-Medium.otf'),
+    'SFPro-Italic': require('../assets/fonts/SFPro-LightItalic.otf'),
+    'SFPro-ItalicSemibold': require('../assets/fonts/SFPro-SemiBoldItalic.otf'),
+  })
   const [isSplashShown, setIsSplashShown] = useState<boolean>(true)
 
   useEffect(() => {
-    const timeout = setTimeout(async () => {
+    if (!loaded) {
+      return
+    }
+
+    const hideSplash = async () => {
       await SplashScreen.hideAsync()
-
       setIsSplashShown(false)
-    }, 2000)
+    }
 
-    return () => clearTimeout(timeout)
-  }, [])
+    hideSplash()
+  }, [loaded])
 
   if (isSplashShown) {
     return <Splash />

@@ -1,7 +1,6 @@
-import DarkSplashIcon from '@/assets/images/custom/splash-icon-dark.png'
-import LightSplashIcon from '@/assets/images/custom/splash-icon-light.png'
+import { DarkSplashIcon, LightSplashIcon } from './icons'
 
-export const colors = {
+export const themes = {
   light: {
     splashBackground: '#fff',
     splashIcon: LightSplashIcon,
