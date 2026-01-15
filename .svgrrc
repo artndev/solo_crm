@@ -1,6 +1,6 @@
 {
   "replaceAttrValues": {
-    "#000": "currentColor"
+    "#000": "{props.stroke}"
   },
   "icon": true
 }

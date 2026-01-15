@@ -1,5 +1,6 @@
 import Button from '@/components/Button'
-import * as icons from '@/constants/icons'
+import FaceId from '@/components/icons/FaceId'
+import Input from '@/components/Input'
 import { useTheme } from '@/hooks/useTheme'
 import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -25,10 +26,12 @@ const Welcome = () => {
 
       <Button
         title="Log In"
-        IconLeft={icons.FaceIdIcon}
+        IconLeft={FaceId}
         bgVariant="outline"
         textVariant="secondary"
       />
+
+      <Input />
     </SafeAreaView>
   )
 }

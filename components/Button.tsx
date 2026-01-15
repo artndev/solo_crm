@@ -32,7 +32,7 @@ const Button: React.FC<I_ButtonProps> = ({
     <TouchableOpacity
       onPress={onPress}
       className={cn(
-        'flex flex-row justify-between items-center gap-4 min-w-[200px] rounded-[8px] shadow-button py-3 px-4',
+        'flex flex-row justify-between items-center gap-[14px] min-w-[200px] rounded-[8px] shadow-button p-[14px]',
         className
       )}
       style={{
@@ -51,7 +51,6 @@ const Button: React.FC<I_ButtonProps> = ({
           <IconLeft
             width={20}
             height={20}
-            fill={'currentColor'}
             color={theme.textButton[textVariant]}
           />
         )}
@@ -71,7 +70,6 @@ const Button: React.FC<I_ButtonProps> = ({
           <IconRight
             width={20}
             height={20}
-            fill={'currentColor'}
             color={theme.textButton[textVariant]}
           />
         )}
