@@ -24,11 +24,12 @@ export const themes = {
     borderFocusedInput: '#150AE9',
     inputIconColor: '#3B4356',
 
-    title: '#111',
+    themeText: '#1A1F35',
+    title: '#000',
     bg: '#FFF',
   },
   dark: {
-    splashBackground: '#111',
+    splashBackground: '#000',
     splashIcon: DarkSplashIcon,
 
     bgButton: {
@@ -49,7 +50,8 @@ export const themes = {
     borderFocusedInput: '#FFF',
     inputIconColor: '#FFF',
 
+    themeText: '#E3E8ED',
     title: '#FFF',
-    bg: '#111',
+    bg: '#000',
   },
 }

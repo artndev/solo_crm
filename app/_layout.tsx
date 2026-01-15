@@ -1,5 +1,4 @@
 import Splash from '@/components/Splash'
-import { Buffer } from 'buffer'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -7,14 +6,12 @@ import { useEffect, useState } from 'react'
 import 'react-native-reanimated'
 import './global.css'
 
-// Buffer polyfill
-global.Buffer = Buffer
-
 SplashScreen.preventAutoHideAsync()
 
 export const RootLayout = () => {
   const [loaded] = useFonts({
     'SFPro-Regular': require('../assets/fonts/SFPro-Regular.otf'),
+    'SFPro-Semibold': require('../assets/fonts/SFPro-Semibold.otf'),
     'SFPro-Bold': require('../assets/fonts/SFPro-Bold.otf'),
     'SFPro-Medium': require('../assets/fonts/SFPro-Medium.otf'),
     'SFPro-Italic': require('../assets/fonts/SFPro-LightItalic.otf'),

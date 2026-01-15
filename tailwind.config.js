@@ -4,16 +4,33 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "sfpro-regular": ['SFPro-Regular', 'sans-serif'],
-        "sfpro-medium": ['SFPro-Medium', 'sans-serif'],
-        "sfpro-bold": ['SFPro-Bold', 'sans-serif'],
-        "sfpro-italic": ['SFPro-Italic', 'sans-serif'],
-        "sfpro-italic-semibold": ['SFPro-ItalicSemiBold', 'sans-serif'],
+        'sfpro-regular': ['SFPro-Regular', 'sans-serif'],
+        'sfpro-medium': ['SFPro-Medium', 'sans-serif'],
+        'sfpro-semibold': ['SFPro-Semibold', 'sans-serif'],
+        'sfpro-bold': ['SFPro-Bold', 'sans-serif'],
+        'sfpro-italic': ['SFPro-Italic', 'sans-serif'],
+        'sfpro-italic-semibold': ['SFPro-ItalicSemibold', 'sans-serif'],
       },
       boxShadow: {
-        'button': '0 2px 6px rgba(111, 116, 126, 0.161)',
+        button: '0 2px 6px rgba(111, 116, 126, 0.161)',
       },
-    }
+      fontSize: {
+        sm: '12px',
+        base: '14px',
+        md: '16px',
+        xl: '17px',
+        '2xl': '18px',
+        '3xl': '27px',
+        '4xl': '32px',
+      },
+      colors: {
+        default: '#3B4356',
+        pale: '#FFF',
+        neon: '#150AE9',
+        danger: '#E62043',
+        muted: '#BABEC3',
+      },
+    },
   },
   plugins: [],
   presets: [require('nativewind/preset')],
