@@ -1,9 +1,6 @@
 {
   "replaceAttrValues": {
-    "#000": "{props.fill}",
-    "black": "{props.fill}",
-    "#fff": "{props.fill}",
-    "white": "{props.fill}"
+    "#000": "currentColor"
   },
   "icon": true
 }
