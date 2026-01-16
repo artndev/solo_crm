@@ -1,16 +1,21 @@
+import tw from '@/lib/tw'
+import { ColorValue } from 'react-native'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-const EyeClosed: React.FC<SvgProps> = props => {
+const EyeClosed: React.FC<SvgProps> = ({ stroke, className, ...props }) => {
+  const style = tw`${className || ''}`
+
   return (
     <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={(style?.color as ColorValue) || stroke || 'currentColor'}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      className={className}
       {...props}
     >
       <Path d="m15 18-.722-3.25" />

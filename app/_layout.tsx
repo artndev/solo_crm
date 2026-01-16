@@ -1,4 +1,5 @@
 import Splash from '@/components/Splash'
+import { useTheme } from '@/hooks/useTheme'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -17,6 +18,7 @@ export const RootLayout = () => {
     'SFPro-Italic': require('../assets/fonts/SFPro-LightItalic.otf'),
     'SFPro-ItalicSemibold': require('../assets/fonts/SFPro-SemiBoldItalic.otf'),
   })
+  const { theme } = useTheme()
   const [isSplashShown, setIsSplashShown] = useState<boolean>(true)
 
   useEffect(() => {
@@ -37,9 +39,15 @@ export const RootLayout = () => {
   }
 
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        contentStyle: {
+          backgroundColor: theme.bg,
+        },
+      }}
+    >
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)/welcome" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
     </Stack>
   )
 }

@@ -1,17 +1,21 @@
+import tw from '@/lib/tw'
+import { ColorValue } from 'react-native'
 import Svg, { Circle, Path, SvgProps } from 'react-native-svg'
 
-const Eye: React.FC<SvgProps> = props => {
+const Eye: React.FC<SvgProps> = ({ stroke, className, ...props }) => {
+  const style = tw`${className || ''}`
+
   return (
     <Svg
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={(style?.color as ColorValue) || stroke || 'currentColor'}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-eye-icon lucide-eye"
+      className={className}
       {...props}
     >
       <Path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />

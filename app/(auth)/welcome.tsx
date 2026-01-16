@@ -3,25 +3,20 @@ import FaceId from '@/components/icons/FaceId'
 import Logo from '@/components/icons/Logo'
 import Mail from '@/components/icons/Mail'
 import TypoText from '@/components/text/TypoText'
-import { useTheme } from '@/hooks/useTheme'
+import { useRouter } from 'expo-router'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Welcome = () => {
-  const { theme } = useTheme()
+  const router = useRouter()
 
   return (
-    <SafeAreaView
-      className="flex justify-center items-center size-full"
-      style={{
-        backgroundColor: theme.bg,
-      }}
-    >
+    <SafeAreaView className="flex justify-center items-center size-full">
       <View className="flex flex-col justify-between items-center size-full max-w-[320px] max-h-[620px]">
-        <Logo width={200} resizeMode="contain" />
+        <Logo />
 
         <View className="flex flex-col gap-[45px] w-full">
-          <View className="flex justify-center items-center">
+          <View className="flex flex-col justify-center items-center gap-2">
             <TypoText weight="semibold" className="text-3xl">
               Welcome to SoloCRM
             </TypoText>
@@ -36,23 +31,24 @@ const Welcome = () => {
             <Button
               title="Use Face ID"
               IconLeft={FaceId}
-              bgVariant="danger"
+              bg="neon"
               className="w-full"
             />
 
             <Button
               title="Login with email"
               IconLeft={Mail}
-              bgVariant="outline"
-              textVariant="secondary"
+              bg="outline"
+              color="neon"
               className="w-full"
+              onPress={() => router.push('/(auth)/sign-in')}
             />
           </View>
         </View>
 
         <TypoText className="text-center" darkOverride="text-default">
           Lorem ipsum dolor sit amet, consectetur adipisicing{' '}
-          <TypoText weight="bold" color="danger">
+          <TypoText weight="bold" color="neon">
             Terms and Conditions
           </TypoText>
         </TypoText>
