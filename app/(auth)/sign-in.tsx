@@ -1,6 +1,7 @@
 import Button from '@/components/Button'
 import Input from '@/components/Input'
-import TypoText from '@/components/text/TypoText'
+import ScreenHeader from '@/components/ScreenHeader'
+import TypoText from '@/components/TypoText'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -29,15 +30,22 @@ const SignIn = () => {
   return (
     <SafeAreaView className="size-full">
       <View className="flex flex-col size-full">
-        <View className="flex flex-col w-full px-4">
-          <TypoText weight="semibold" color="neon" className="self-end">
-            Forgot password?
-          </TypoText>
-
-          <TypoText weight="bold" className="text-4xl">
-            Log in
-          </TypoText>
-        </View>
+        <ScreenHeader
+          firstFloor={
+            <TypoText
+              className="text-md ml-auto"
+              weight="semibold"
+              color="neon"
+            >
+              Forgot password?
+            </TypoText>
+          }
+          secondFloor={
+            <TypoText weight="bold" className="text-4xl">
+              Log in
+            </TypoText>
+          }
+        />
 
         <View className="flex-1 flex justify-center items-center">
           <View className="flex flex-col justify-between items-center size-full max-w-[320px] max-h-[540px]">

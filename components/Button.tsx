@@ -4,7 +4,7 @@ import { I_ButtonProps } from '@/types'
 import { cva } from 'class-variance-authority'
 import React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import TypoText from './text/TypoText'
+import TypoText from './TypoText'
 
 const bgVariants = cva('', {
   variants: {

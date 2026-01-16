@@ -7,7 +7,7 @@ import { Controller, FieldError } from 'react-hook-form'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 import Eye from './icons/Eye'
 import EyeClosed from './icons/EyeClosed'
-import TypoText from './text/TypoText'
+import TypoText from './TypoText'
 
 const borderVariants = cva('border-input', {
   variants: {

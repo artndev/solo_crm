@@ -1,6 +1,11 @@
 import { themes } from '@/constants/themes'
 import { Control } from 'react-hook-form'
-import { TextInputProps, TextProps, TouchableOpacityProps } from 'react-native'
+import {
+  TextInputProps,
+  TextProps,
+  TouchableOpacityProps,
+  ViewProps,
+} from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
 export interface I_ButtonProps extends TouchableOpacityProps {
@@ -24,10 +29,28 @@ export interface I_TypoTextProps extends TextProps {
   darkOverride?: string
 }
 
+export interface I_TypoTextBadgeProps extends I_TypoTextProps {
+  badgeValue: number
+  badgeClassname?: string
+}
+
+export interface I_SvgBadge extends SvgProps {
+  Svg: React.ComponentType<SvgProps>
+  badgeValue: number
+  badgeClassname?: string
+}
+
 export interface I_InputProps extends TextInputProps {
   control: Control<T>
   name: string
   isSecured?: boolean
+}
+
+export interface I_HeaderProps extends ViewProps {
+  firstFloor: React.ReactNode
+  firstFloorClassname?: string
+  secondFloor: React.ReactNode
+  secondFloorClassname?: string
 }
 
 export interface I_useTheme {
