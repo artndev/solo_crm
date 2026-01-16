@@ -1,13 +1,19 @@
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import TypoText from '@/components/text/TypoText'
+import { useRouter } from 'expo-router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SignIn = () => {
-  const { handleSubmit, control } = useForm({
+  const router = useRouter()
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -15,7 +21,9 @@ const SignIn = () => {
   })
 
   const onSubmit = (data: { email: string; password: string }) => {
-    console.log(data)
+    console.log('Redirecting')
+
+    router.replace('/(tabs)/home')
   }
 
   return (

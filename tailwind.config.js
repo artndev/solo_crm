@@ -31,6 +31,7 @@ module.exports = {
         muted: '#BABEC3',
         'muted-2': '#787A7A',
         'muted-3': '#2F3030',
+        'tab-non-active': '#8692A1',
         'input-placeholder': '#697385',
       },
       borderColor: {

@@ -9,7 +9,7 @@ import './global.css'
 
 SplashScreen.preventAutoHideAsync()
 
-export const RootLayout = () => {
+export const AppLayout = () => {
   const [loaded] = useFonts({
     'SFPro-Regular': require('../assets/fonts/SFPro-Regular.otf'),
     'SFPro-Semibold': require('../assets/fonts/SFPro-Semibold.otf'),
@@ -48,8 +48,9 @@ export const RootLayout = () => {
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
   )
 }
 
-export default RootLayout
+export default AppLayout

@@ -52,7 +52,6 @@ const colorVariants = cva('', {
 })
 
 const Button: React.FC<I_ButtonProps> = ({
-  onPress,
   title,
   bg: bgVariant,
   color: colorVariant,
@@ -65,7 +64,6 @@ const Button: React.FC<I_ButtonProps> = ({
 
   return (
     <TouchableOpacity
-      onPress={onPress}
       className={cn(
         'flex flex-row justify-between items-center gap-[14px] min-w-[200px] rounded-[8px] shadow-button p-[14px]',
         bgVariants({ bgVariant, theme: colorScheme }),

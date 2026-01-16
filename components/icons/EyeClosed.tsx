@@ -11,7 +11,7 @@ const EyeClosed: React.FC<SvgProps> = ({ stroke, className, ...props }) => {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke={(style?.color as ColorValue) || stroke || 'currentColor'}
+      stroke={(style?.color as ColorValue) || stroke || '#000'}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

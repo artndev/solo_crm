@@ -3,10 +3,11 @@ import { cn } from '@/lib/utils'
 import { I_InputProps } from '@/types'
 import { cva } from 'class-variance-authority'
 import React, { useState } from 'react'
-import { Controller } from 'react-hook-form'
+import { Controller, FieldError } from 'react-hook-form'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 import Eye from './icons/Eye'
 import EyeClosed from './icons/EyeClosed'
+import TypoText from './text/TypoText'
 
 const borderVariants = cva('border-input', {
   variants: {
@@ -61,68 +62,80 @@ const Input: React.FC<I_InputProps> = ({
   const { colorScheme } = useTheme()
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [isSecureTextEntry, setIsSecureTextEntry] = useState<boolean>(false)
+  const [fieldError, setFieldError] = useState<FieldError | undefined>(
+    undefined
+  )
 
   return (
-    <View
-      className={cn(
-        'flex flex-row justify-between items-end gap-1 w-full border-b pb-2',
-        borderVariants({ theme: colorScheme, focused: isFocused })
-      )}
-    >
+    <View className="flex flex-col gap-2 w-full">
       <Controller
         control={control}
         rules={{
-          required: true,
+          required: 'Required',
         }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            className={cn(
-              'flex-1 text-md font-sfpro-medium pb-0',
-              colorVariants({ theme: colorScheme })
-            )}
-            secureTextEntry={isSecureTextEntry}
-            placeholder={placeholder}
-            onChangeText={onChange}
-            onBlur={() => {
-              setIsFocused(false)
+        render={({
+          field: { onChange, onBlur, value },
+          fieldState: { error },
+        }) => {
+          setFieldError(error)
 
-              onBlur()
-            }}
-            onFocus={e => {
-              setIsFocused(true)
+          return (
+            <View
+              className={cn(
+                'flex flex-row justify-between items-end gap-2 w-full border-b pb-2',
+                borderVariants({ theme: colorScheme, focused: isFocused })
+              )}
+            >
+              <TextInput
+                className={cn(
+                  'flex-1 text-md font-sfpro-medium pb-0',
+                  colorVariants({ theme: colorScheme })
+                )}
+                secureTextEntry={isSecureTextEntry}
+                placeholder={placeholder}
+                onChangeText={onChange}
+                onBlur={() => {
+                  setIsFocused(false)
+                  onBlur()
+                }}
+                onFocus={e => {
+                  setIsFocused(true)
+                  onFocus?.(e)
+                }}
+                value={value}
+                {...props}
+              />
 
-              if (!onFocus) {
-                return
-              }
-
-              onFocus(e)
-            }}
-            value={value}
-            {...props}
-          />
-        )}
+              {isSecured && (
+                <TouchableOpacity
+                  className="flex justify-center items-center"
+                  onPress={() => setIsSecureTextEntry(prev => !prev)}
+                >
+                  {isSecureTextEntry ? (
+                    <EyeClosed
+                      width={20}
+                      height={20}
+                      className={colorVariants({ theme: colorScheme })}
+                    />
+                  ) : (
+                    <Eye
+                      width={20}
+                      height={20}
+                      className={colorVariants({ theme: colorScheme })}
+                    />
+                  )}
+                </TouchableOpacity>
+              )}
+            </View>
+          )
+        }}
         name={name}
       />
 
-      {isSecured && (
-        <TouchableOpacity
-          className="flex justify-center items-center"
-          onPress={() => setIsSecureTextEntry(prev => !prev)}
-        >
-          {isSecureTextEntry ? (
-            <EyeClosed
-              width={20}
-              height={20}
-              className={colorVariants({ theme: colorScheme })}
-            />
-          ) : (
-            <Eye
-              width={20}
-              height={20}
-              className={colorVariants({ theme: colorScheme })}
-            />
-          )}
-        </TouchableOpacity>
+      {fieldError && (
+        <TypoText weight="bold" color="danger" className="text-sm">
+          {fieldError.message}
+        </TypoText>
       )}
     </View>
   )
