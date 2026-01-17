@@ -53,6 +53,15 @@ export interface I_HeaderProps extends ViewProps {
   secondFloorClassname?: string
 }
 
+export interface I_StackItem extends ViewProps {
+  Svg: React.ComponentType<SvgProps>
+  title: string
+}
+
+export interface I_Stack extends ViewProps {
+  stackItems: I_StackItem[]
+}
+
 export interface I_useTheme {
   colorScheme: 'light' | 'dark'
   theme: (typeof themes)['light']

@@ -61,9 +61,6 @@ const TypoText: React.FC<I_TypoTextProps> = ({
         colorScheme === 'dark' ? darkOverride : '',
         className
       )}
-      style={{
-        includeFontPadding: false,
-      }}
       {...props}
     >
       {children}

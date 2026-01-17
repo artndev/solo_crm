@@ -16,7 +16,7 @@ const SvgBadge: React.FC<I_SvgBadge> = ({
 
       <View
         className={cn(
-          'absolute -top-2 left-full -ml-3.5 flex items-center justify-center min-w-[30px] h-[20px] rounded-full px-2 bg-danger',
+          'absolute -top-2 left-full -ml-3.5 flex items-center justify-center min-w-[20px] h-[20px] rounded-full px-2 bg-danger',
           badgeClassname
         )}
       >
