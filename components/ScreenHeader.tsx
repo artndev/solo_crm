@@ -8,12 +8,17 @@ const ScreenHeader: React.FC<I_HeaderProps> = ({
   firstFloorClassname,
   secondFloor,
   secondFloorClassname,
+  withBorder = false,
   className,
   ...props
 }) => {
   return (
     <View
-      className={cn('flex flex-col w-full px-5 pt-[10px]', className)}
+      className={cn(
+        'flex flex-col w-full px-5 pt-[10px]',
+        withBorder ? 'border-b border-input' : '',
+        className
+      )}
       {...props}
     >
       <View

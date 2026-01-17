@@ -1,7 +1,7 @@
+import TypoText from '@/components/(text)/TypoText'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 import ScreenHeader from '@/components/ScreenHeader'
-import TypoText from '@/components/TypoText'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { useForm } from 'react-hook-form'

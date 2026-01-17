@@ -5,7 +5,6 @@ import { cva } from 'class-variance-authority'
 import React from 'react'
 import { Text } from 'react-native'
 
-/* Additional classes */
 const weightVariants = cva('', {
   variants: {
     weightVariant: {
@@ -19,6 +18,23 @@ const weightVariants = cva('', {
   },
   defaultVariants: {
     weightVariant: 'regular',
+  },
+})
+
+const sizeVariants = cva('', {
+  variants: {
+    sizeVariant: {
+      sm: 'text-sm',
+      base: 'text-base',
+      md: 'text-md',
+      xl: 'text-xl',
+      '2xl': 'text-2xl',
+      '3xl': 'text-3xl',
+      '4xl': 'text-4xl',
+    },
+  },
+  defaultVariants: {
+    sizeVariant: 'base',
   },
 })
 
@@ -44,6 +60,7 @@ const colorVariants = cva('', {
 
 const TypoText: React.FC<I_TypoTextProps> = ({
   weight: weightVariant,
+  size: sizeVariant,
   color: colorVariant,
   darkOverride,
   className,
@@ -55,8 +72,9 @@ const TypoText: React.FC<I_TypoTextProps> = ({
   return (
     <Text
       className={cn(
-        'text-base leading-[18px]',
+        'text-base',
         weightVariants({ weightVariant }),
+        sizeVariants({ sizeVariant }),
         colorVariants({ colorVariant, theme: colorScheme }),
         colorScheme === 'dark' ? darkOverride : '',
         className

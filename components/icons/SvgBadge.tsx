@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import { I_SvgBadge } from '@/types'
 import React from 'react'
 import { View } from 'react-native'
-import TypoText from '../TypoText'
+import TypoText from '../(text)/TypoText'
 
 const SvgBadge: React.FC<I_SvgBadge> = ({
   Svg,

@@ -1,3 +1,4 @@
+import { StackItem } from '@/components/Stack'
 import { themes } from '@/constants/themes'
 import { Control } from 'react-hook-form'
 import {
@@ -25,6 +26,7 @@ export interface I_TypoTextProps extends TextProps {
     | 'medium'
     | 'italic'
     | 'italic-semibold'
+  size?: 'sm' | 'base' | 'md' | 'xl' | '2xl' | '3xl' | '4xl'
   color?: 'default' | 'pale' | 'neon' | 'danger' | 'muted'
   darkOverride?: string
 }
@@ -51,6 +53,7 @@ export interface I_HeaderProps extends ViewProps {
   firstFloorClassname?: string
   secondFloor: React.ReactNode
   secondFloorClassname?: string
+  withBorder?: boolean
 }
 
 export interface I_StackItem extends ViewProps {
@@ -58,8 +61,16 @@ export interface I_StackItem extends ViewProps {
   title: string
 }
 
-export interface I_Stack extends ViewProps {
-  stackItems: I_StackItem[]
+export type T_StackItemTypes = {
+  StackItem: React.ComponentProps<typeof StackItem>
+}
+
+export type T_StackItemKeys = keyof T_StackItemTypes
+
+export interface I_Stack<T extends T_StackItemKeys> extends ViewProps {
+  stackItems: T_StackItemTypes[T][]
+  stackItemType: T
+  itemBorder?: 'default' | 'full'
 }
 
 export interface I_useTheme {
