@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator()
 
 export const TabsLayout = () => {
   const insets = useSafeAreaInsets()
-  const { colorScheme, theme } = useTheme()
+  const { colorScheme } = useTheme()
 
   return (
     <>
@@ -25,7 +25,7 @@ export const TabsLayout = () => {
             backgroundColor: colorScheme === 'dark' ? '#161616' : '#FFF',
           },
           tabBarStyle: {
-            backgroundColor: theme.bg,
+            backgroundColor: colorScheme === 'dark' ? '#000' : '#FFF',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',

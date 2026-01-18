@@ -22,6 +22,7 @@ import ScreenHeader from '@/components/ScreenHeader'
 import Stack from '@/components/Stack'
 import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
+import { Link } from 'expo-router'
 import React from 'react'
 import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -34,7 +35,6 @@ const Home = () => {
     <View className="w-full min-h-full">
       <View className="flex flex-col size-full">
         <ScreenHeader
-          className={colorScheme === 'dark' ? 'border-muted-3' : ''}
           style={{
             paddingTop: insets.top,
           }}
@@ -45,7 +45,7 @@ const Home = () => {
                 resizeMode="cover"
                 className={cn(
                   'w-[34px] h-[34px] rounded-full',
-                  colorScheme === 'dark' ? 'border-2 border-[#2F3030]' : ''
+                  colorScheme === 'dark' ? 'border-2 border-muted-3' : ''
                 )}
               />
 
@@ -84,10 +84,6 @@ const Home = () => {
         >
           <View className="flex flex-col gap-10 p-5">
             <Stack
-              className={colorScheme === 'dark' ? 'border-muted-3' : ''}
-              stackItemClassname={
-                colorScheme === 'dark' ? 'border-muted-3' : ''
-              }
               stackItemType="StackItem"
               stackItems={[
                 {
@@ -126,26 +122,11 @@ const Home = () => {
             />
 
             <View className="flex flex-col gap-5">
-              <View className="flex flex-row justify-between">
-                <TypoText weight="semibold" size="md">
-                  Recent
-                </TypoText>
-
-                <TypoText
-                  weight="semibold"
-                  color="neon"
-                  size="md"
-                  darkOverride="text-muted"
-                >
-                  View all
-                </TypoText>
-              </View>
+              <TypoText weight="semibold" size="md">
+                Recent
+              </TypoText>
 
               <Stack
-                className={colorScheme === 'dark' ? 'border-muted-3' : ''}
-                stackItemClassname={
-                  colorScheme === 'dark' ? 'border-muted-3' : ''
-                }
                 stackItemBorder="full"
                 stackItemType="StackItemRecent"
                 stackItems={[
@@ -195,9 +176,7 @@ const Home = () => {
                 Shortcuts
               </TypoText>
 
-              <Quickstart
-                className={colorScheme === 'dark' ? 'border-muted-3' : ''}
-              />
+              <Quickstart />
             </View>
 
             <View className="flex flex-col gap-5">
@@ -206,18 +185,19 @@ const Home = () => {
                   Notifications
                 </TypoText>
 
-                <TypoText
-                  weight="semibold"
-                  color="neon"
-                  size="md"
-                  darkOverride="text-muted"
-                >
-                  View all
-                </TypoText>
+                <Link href={'/(root)/notifications'}>
+                  <TypoText
+                    weight="semibold"
+                    color="neon"
+                    size="md"
+                    darkOverride="text-muted"
+                  >
+                    View all
+                  </TypoText>
+                </Link>
               </View>
 
               <Stack
-                className={colorScheme === 'dark' ? 'border-muted-3' : ''}
                 stackItemType="StackItemNotifications"
                 stackItems={[
                   {

@@ -6,6 +6,7 @@ import Projects from '@/components/icons/(shortcuts)/Projects'
 import Screenshots from '@/components/icons/(shortcuts)/Screenshots'
 import Shortcuts from '@/components/icons/(shortcuts)/Shortcuts'
 import Users from '@/components/icons/(shortcuts)/Users'
+import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 import React from 'react'
 import { View, ViewProps } from 'react-native'
@@ -15,11 +16,14 @@ import Card from './Card'
 import Plus from './icons/(other)/Plus'
 
 const Quickstart: React.FC<ViewProps> = ({ className, ...props }) => {
+  const { colorScheme } = useTheme()
+
   return (
     <Card
       className={cn(
         'flex justify-center items-center gap-4 px-5 py-6',
-        className
+        className,
+        colorScheme === 'dark' ? 'border-muted-3' : ''
       )}
       {...props}
     >

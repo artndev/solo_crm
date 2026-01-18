@@ -1,3 +1,4 @@
+import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 import { I_Stack, T_StackItemKeys } from '@/types'
 import React from 'react'
@@ -20,6 +21,7 @@ const Stack = <T extends T_StackItemKeys>({
   className,
   ...props
 }: I_Stack<T>) => {
+  const { colorScheme } = useTheme()
   const Component = COMPONENT_MAP[stackItemType] as React.ComponentType<any>
 
   return (
@@ -27,7 +29,8 @@ const Stack = <T extends T_StackItemKeys>({
       className={cn(
         'py-5',
         className,
-        stackItemBorder === 'full' ? 'px-0' : 'px-5'
+        stackItemBorder === 'full' ? 'px-0' : 'px-5',
+        colorScheme === 'dark' ? 'border-muted-3' : ''
       )}
       {...props}
     >
@@ -41,7 +44,8 @@ const Stack = <T extends T_StackItemKeys>({
               stackItemClassname,
               i === 0 ? 'pt-0' : '',
               i !== stackItems.length - 1 ? 'border-b' : 'pb-0',
-              stackItemBorder === 'default' ? 'px-0' : 'px-5'
+              stackItemBorder === 'default' ? 'px-0' : 'px-5',
+              colorScheme === 'dark' ? 'border-muted-3' : ''
             )}
             {...props}
           />

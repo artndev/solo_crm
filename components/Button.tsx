@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { I_ButtonProps } from '@/types'
 import { cva } from 'class-variance-authority'
 import React from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import TypoText from './(text)/TypoText'
 
 const bgVariants = cva('', {
@@ -63,9 +63,10 @@ const Button: React.FC<I_ButtonProps> = ({
   const { colorScheme } = useTheme()
 
   return (
-    <TouchableOpacity
+    <Pressable
       className={cn(
-        'flex flex-row justify-between items-center gap-[14px] min-w-[200px] rounded-[8px] shadow-button p-[14px]',
+        'flex flex-row justify-between items-center gap-[14px] min-w-[200px] rounded-[8px] p-[14px]',
+        'active:opacity-70 active:scale-95 transition-transform duration-150',
         bgVariants({ bgVariant, theme: colorScheme }),
         className
       )}
@@ -100,7 +101,7 @@ const Button: React.FC<I_ButtonProps> = ({
           />
         )}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
