@@ -1,0 +1,25 @@
+import React from 'react'
+import Svg, { Path, Rect, SvgProps } from 'react-native-svg'
+
+const Shortcuts: React.FC<SvgProps> = ({ className, ...props }) => {
+  return (
+    <Svg
+      width={32}
+      height={32}
+      viewBox="0 0 32 32"
+      fill="none"
+      stroke="#FFF"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <Rect width={32} height={32} rx={6} fill="#315EFD" stroke="none" />
+
+      <Path d="M9.99994 10.8785V21.1214C9.99992 21.2733 10.0393 21.4226 10.1142 21.5547C10.1891 21.6869 10.297 21.7973 10.4273 21.8753C10.5576 21.9533 10.7059 21.9962 10.8578 21.9997C11.0096 22.0033 11.1598 21.9674 11.2936 21.8957L20.8531 16.7742C20.9931 16.6991 21.1102 16.5875 21.1918 16.4511C21.2734 16.3148 21.3165 16.1589 21.3165 16C21.3165 15.8411 21.2734 15.6852 21.1918 15.5488C21.1102 15.4125 20.9931 15.3008 20.8531 15.2258L11.2936 10.1043C11.1598 10.0325 11.0096 9.99666 10.8578 10.0002C10.7059 10.0038 10.5576 10.0467 10.4273 10.1247C10.297 10.2027 10.1891 10.3131 10.1142 10.4452C10.0393 10.5774 9.99992 10.7267 9.99994 10.8785V10.8785Z" />
+    </Svg>
+  )
+}
+
+export default Shortcuts

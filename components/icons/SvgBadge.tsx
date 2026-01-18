@@ -8,15 +8,14 @@ const SvgBadge: React.FC<I_SvgBadge> = ({
   Svg,
   badgeValue,
   badgeClassname,
-  ...props
 }) => {
   return (
     <View className="relative">
-      <Svg {...props} />
+      {Svg}
 
       <View
         className={cn(
-          'absolute -top-2 left-full -ml-3.5 flex items-center justify-center min-w-[20px] h-[20px] rounded-full px-2 bg-danger',
+          'absolute -top-2 left-full -ml-3.5 flex items-center justify-center min-w-[20px] h-[20px] rounded-full px-1.5 bg-danger',
           badgeClassname
         )}
       >
@@ -25,7 +24,7 @@ const SvgBadge: React.FC<I_SvgBadge> = ({
           color="pale"
           className="text-sm text-center w-full"
         >
-          {badgeValue > 999 ? '999+' : badgeValue}
+          {badgeValue > 99 ? '99+' : badgeValue}
         </TypoText>
       </View>
     </View>

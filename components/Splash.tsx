@@ -1,7 +1,7 @@
 import { useTheme } from '@/hooks/useTheme'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Logo from './icons/Logo'
+import Logo from './icons/(other)/Logo'
 
 const Splash = () => {
   const { theme } = useTheme()

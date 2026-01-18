@@ -1,3 +1,4 @@
+import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 import { I_HeaderProps } from '@/types'
 import React from 'react'
@@ -12,12 +13,15 @@ const ScreenHeader: React.FC<I_HeaderProps> = ({
   className,
   ...props
 }) => {
+  const { colorScheme } = useTheme()
+
   return (
     <View
       className={cn(
-        'flex flex-col w-full px-5 pt-[10px]',
+        'flex flex-col w-full px-5 pb-2 pt-[10px]',
         withBorder ? 'border-b border-input' : '',
-        className
+        className,
+        colorScheme === 'dark' ? 'bg-black' : ''
       )}
       {...props}
     >

@@ -1,4 +1,3 @@
-import { StackItem } from '@/components/Stack'
 import { themes } from '@/constants/themes'
 import { Control } from 'react-hook-form'
 import {
@@ -26,8 +25,8 @@ export interface I_TypoTextProps extends TextProps {
     | 'medium'
     | 'italic'
     | 'italic-semibold'
-  size?: 'sm' | 'base' | 'md' | 'xl' | '2xl' | '3xl' | '4xl'
-  color?: 'default' | 'pale' | 'neon' | 'danger' | 'muted'
+  size?: 'sm' | 'base' | 'md' | 'xl' | '2xl' | '3xl' | '4xl' | 'inherit'
+  color?: 'default' | 'pale' | 'neon' | 'danger' | 'muted' | 'inherit'
   darkOverride?: string
 }
 
@@ -36,10 +35,14 @@ export interface I_TypoTextBadgeProps extends I_TypoTextProps {
   badgeClassname?: string
 }
 
-export interface I_SvgBadge extends SvgProps {
-  Svg: React.ComponentType<SvgProps>
+export interface I_SvgBadge {
+  Svg: React.ReactElement<SvgProps>
   badgeValue: number
   badgeClassname?: string
+}
+
+export interface I_SvgWrapper extends ViewProps {
+  Svg: React.ComponentType<SvgProps>
 }
 
 export interface I_InputProps extends TextInputProps {
@@ -57,12 +60,30 @@ export interface I_HeaderProps extends ViewProps {
 }
 
 export interface I_StackItem extends ViewProps {
-  Svg: React.ComponentType<SvgProps>
+  Svg: React.ReactElement<SvgProps>
   title: string
 }
 
+export interface I_StackItemRecent extends ViewProps {
+  Svg: React.ReactElement<SvgProps>
+  organization: string
+  project: string
+  desc: string
+  status: string
+  time: number
+  total?: number
+}
+
+export interface I_StackItemNotifications extends ViewProps {
+  Svg: React.ReactElement<SvgProps>
+  message: React.ReactElement<I_TypoTextProps> | string
+  date: string
+}
+
 export type T_StackItemTypes = {
-  StackItem: React.ComponentProps<typeof StackItem>
+  StackItem: I_StackItem
+  StackItemRecent: I_StackItemRecent
+  StackItemNotifications: I_StackItemNotifications
 }
 
 export type T_StackItemKeys = keyof T_StackItemTypes
@@ -70,7 +91,8 @@ export type T_StackItemKeys = keyof T_StackItemTypes
 export interface I_Stack<T extends T_StackItemKeys> extends ViewProps {
   stackItems: T_StackItemTypes[T][]
   stackItemType: T
-  itemBorder?: 'default' | 'full'
+  stackItemClassname?: string
+  stackItemBorder?: 'default' | 'full'
 }
 
 export interface I_useTheme {

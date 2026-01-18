@@ -25,7 +25,7 @@ const TypoTextBadge: React.FC<I_TypoTextBadgeProps> = ({
           color="pale"
           className="text-sm text-center w-full"
         >
-          {badgeValue > 999 ? '999+' : badgeValue}
+          {badgeValue > 99 ? '99+' : badgeValue}
         </TypoText>
       </View>
     </View>

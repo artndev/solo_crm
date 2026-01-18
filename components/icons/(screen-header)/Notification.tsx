@@ -2,17 +2,18 @@ import tw from '@/lib/tw'
 import { ColorValue } from 'react-native'
 import Svg, { Path, SvgProps } from 'react-native-svg'
 
-const Notification: React.FC<SvgProps> = ({ stroke, className, ...props }) => {
+const Notification: React.FC<SvgProps> = ({ color, className, ...props }) => {
   const style = tw`${className || ''}`
 
   return (
     <Svg
-      width="18"
-      height="20"
+      width={18}
+      height={20}
       viewBox="0 0 18 20"
       fill="none"
-      stroke={(style?.color as ColorValue) || stroke || 'currentColor'}
-      strokeWidth="2"
+      color={(style?.color as ColorValue) || color || '#000'}
+      stroke={'currentColor'}
+      strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}

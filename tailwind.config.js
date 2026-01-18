@@ -33,6 +33,9 @@ module.exports = {
         'muted-3': '#2F3030',
         'tab-non-active': '#8692A1',
         'input-placeholder': '#697385',
+        'card-notification': '#E3E8ED',
+        'card-date-time': '#6F747E',
+        'card-divider': '#BEBFC3',
       },
       borderColor: {
         input: '#E3E8ED',

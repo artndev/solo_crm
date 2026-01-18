@@ -31,6 +31,7 @@ const sizeVariants = cva('', {
       '2xl': 'text-2xl',
       '3xl': 'text-3xl',
       '4xl': 'text-4xl',
+      inherit: '',
     },
   },
   defaultVariants: {
@@ -46,6 +47,7 @@ const colorVariants = cva('', {
       neon: 'text-neon',
       danger: 'text-danger',
       muted: 'text-muted',
+      inherit: '',
     },
     theme: {
       light: '',
@@ -72,12 +74,11 @@ const TypoText: React.FC<I_TypoTextProps> = ({
   return (
     <Text
       className={cn(
-        'text-base',
-        weightVariants({ weightVariant }),
         sizeVariants({ sizeVariant }),
+        weightVariants({ weightVariant }),
         colorVariants({ colorVariant, theme: colorScheme }),
-        colorScheme === 'dark' ? darkOverride : '',
-        className
+        className,
+        colorScheme === 'dark' ? darkOverride : ''
       )}
       {...props}
     >

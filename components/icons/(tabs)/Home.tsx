@@ -3,12 +3,12 @@ import Svg, { Path, SvgProps } from 'react-native-svg'
 const Home: React.FC<SvgProps> = ({ fill, stroke, ...props }) => {
   return (
     <Svg
-      width="22"
-      height="22"
+      width={22}
+      height={22}
       viewBox="0 0 22 22"
       fill={fill || 'none'}
       stroke={stroke}
-      strokeWidth="2"
+      strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}
