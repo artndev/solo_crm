@@ -1,5 +1,4 @@
 import Cat from '@/assets/images/cat.png'
-import Bold from '@/components/(text)/Bold'
 import TypoText from '@/components/(text)/TypoText'
 import Notification from '@/components/icons/(screen-header)/Notification'
 import Plus from '@/components/icons/(screen-header)/Plus'
@@ -12,14 +11,11 @@ import Screenshots from '@/components/icons/(shortcuts)/Screenshots'
 import Shortcuts from '@/components/icons/(shortcuts)/Shortcuts'
 import Users from '@/components/icons/(shortcuts)/Users'
 import Circle from '@/components/icons/(stack)/Circle'
-import Cross from '@/components/icons/(stack)/Cross'
-import Edit from '@/components/icons/(stack)/Edit'
-import Plus2 from '@/components/icons/(stack)/Plus2'
-import Tick from '@/components/icons/(stack)/Tick'
 import SvgBadge from '@/components/icons/SvgBadge'
 import Quickstart from '@/components/Quickstart'
 import ScreenHeader from '@/components/ScreenHeader'
 import Stack from '@/components/Stack'
+import { STACK_ITEM_NOTIFICATIONS_DATA } from '@/constants/data'
 import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 import { Link } from 'expo-router'
@@ -36,7 +32,7 @@ const Home = () => {
       <View className="flex flex-col size-full">
         <ScreenHeader
           style={{
-            paddingTop: insets.top,
+            paddingTop: insets.top + 10,
           }}
           firstFloor={
             <>
@@ -199,52 +195,9 @@ const Home = () => {
 
               <Stack
                 stackItemType="StackItemNotifications"
-                stackItems={[
-                  {
-                    Svg: <Cross />,
-                    message: (
-                      <TypoText size="sm" className="w-full">
-                        Invoice{' '}
-                        <Bold>marked &quot;2020.0005.3381&quot; as</Bold>{' '}
-                        Cancelled.
-                      </TypoText>
-                    ),
-                    date: 'Apr 09, 2020 18:23',
-                  },
-                  {
-                    Svg: <Plus2 />,
-                    message: (
-                      <TypoText size="sm" className="w-full">
-                        New invoice{' '}
-                        <Bold>
-                          &quot;2020.0005.3381&quot; added to the project
-                        </Bold>{' '}
-                        Forus Platform.
-                      </TypoText>
-                    ),
-                    date: 'Apr 09, 2020 18:23',
-                  },
-                  {
-                    Svg: <Edit />,
-                    message: (
-                      <TypoText size="sm" className="w-full">
-                        A new note was added to the project{' '}
-                        <Bold>Corona Voucher</Bold> system.
-                      </TypoText>
-                    ),
-                    date: 'Apr 09, 2020 18:23',
-                  },
-                  {
-                    Svg: <Tick />,
-                    message: (
-                      <TypoText size="sm" className="w-full">
-                        Status changed from <Bold>Concept to Closed</Bold> for
-                        the project <Bold>1Language Contact Portal</Bold>.
-                      </TypoText>
-                    ),
-                    date: 'Apr 09, 2020 18:23',
-                  },
-                ]}
+                stackItems={
+                  STACK_ITEM_NOTIFICATIONS_DATA['Today, Apr 08, 2020']
+                }
               />
             </View>
           </View>

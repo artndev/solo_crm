@@ -22,9 +22,7 @@ const SignIn = () => {
   })
 
   const onSubmit = (data: { email: string; password: string }) => {
-    console.log('Redirecting')
-
-    router.replace('/(tabs)/home')
+    router.replace('/home')
   }
 
   return (

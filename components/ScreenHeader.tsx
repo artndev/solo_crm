@@ -18,7 +18,7 @@ const ScreenHeader: React.FC<I_HeaderProps> = ({
   return (
     <View
       className={cn(
-        'flex flex-col w-full px-5 pb-2 pt-[10px] bg-light-screen-header',
+        'flex flex-col w-full px-5 pb-2 bg-light-screen-header',
         withBorder ? 'border-b border-input' : '',
         className,
         colorScheme === 'dark' ? 'border-muted-3 bg-dark-screen-header' : ''

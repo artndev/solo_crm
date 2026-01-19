@@ -4,10 +4,10 @@ const Index = () => {
   const isSignedIn = true // useAuth()
 
   if (isSignedIn) {
-    return <Redirect href="/(tabs)/home" />
+    return <Redirect href="/home" />
   }
 
-  return <Redirect href="/(auth)/welcome" />
+  return <Redirect href="/welcome" />
 }
 
 export default Index

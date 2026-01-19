@@ -1,4 +1,3 @@
-import { themes } from '@/constants/themes'
 import { Control } from 'react-hook-form'
 import {
   TextInputProps,
@@ -30,6 +29,12 @@ export interface I_TypoTextProps extends TextProps {
   darkOverride?: string
 }
 
+export interface I_MdContentProps {
+  text: string
+  textProps?: I_TypoTextProps
+  containerProps?: ViewProps
+}
+
 export interface I_TypoTextBadgeProps extends I_TypoTextProps {
   badgeValue: number
   badgeClassname?: string
@@ -59,6 +64,15 @@ export interface I_HeaderProps extends ViewProps {
   withBorder?: boolean
 }
 
+export interface I_SearchBarProps<T> extends ViewProps {
+  flatListData: T[]
+  targetField: {
+    [K in keyof T]: T[K] extends string ? K : never
+  }[keyof T]
+  renderItem: (info: { item: T; index: number }) => React.ReactElement
+  withBorder?: boolean
+}
+
 export interface I_StackItem extends ViewProps {
   Svg: React.ReactElement<SvgProps>
   title: string
@@ -76,7 +90,7 @@ export interface I_StackItemRecent extends ViewProps {
 
 export interface I_StackItemNotifications extends ViewProps {
   Svg: React.ReactElement<SvgProps>
-  message: React.ReactElement<I_TypoTextProps> | string
+  message: string
   date: string
 }
 
@@ -97,7 +111,6 @@ export interface I_Stack<T extends T_StackItemKeys> extends ViewProps {
 
 export interface I_useTheme {
   colorScheme: 'light' | 'dark'
-  theme: (typeof themes)['light']
 }
 
 export type T_Colors = 'default' | 'pale' | 'neon' | 'danger' | 'muted'

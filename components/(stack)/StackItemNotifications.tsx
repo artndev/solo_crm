@@ -4,6 +4,7 @@ import { I_StackItemNotifications } from '@/types'
 import { View } from 'react-native'
 import TypoText from '../(text)/TypoText'
 import Clock from '../icons/(stack)/Clock'
+import MdContent from '../MdContent'
 
 const StackItemNotifications: React.FC<I_StackItemNotifications> = ({
   Svg,
@@ -29,7 +30,9 @@ const StackItemNotifications: React.FC<I_StackItemNotifications> = ({
       </View>
 
       <View className="flex-1 flex flex-col gap-[10px]">
-        <View className="flex-1">{message}</View>
+        <View className="flex-1">
+          <MdContent text={message} />
+        </View>
 
         <View className="flex flex-row items-center gap-2">
           <Clock className={colorScheme === 'dark' ? 'text-muted' : ''} />

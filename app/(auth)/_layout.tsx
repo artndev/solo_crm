@@ -3,13 +3,13 @@ import { Stack } from 'expo-router'
 import 'react-native-reanimated'
 
 export const AuthLayout = () => {
-  const { theme } = useTheme()
+  const { colorScheme } = useTheme()
 
   return (
     <Stack
       screenOptions={{
         contentStyle: {
-          backgroundColor: theme.bg,
+          backgroundColor: colorScheme === 'dark' ? '#161616' : '#FFF',
         },
       }}
     >

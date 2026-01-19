@@ -41,7 +41,7 @@ const Welcome = () => {
               bg="outline"
               color="neon"
               className="w-full"
-              onPress={() => router.push('/(auth)/sign-in')}
+              onPress={() => router.push('/sign-in')}
             />
           </View>
         </View>

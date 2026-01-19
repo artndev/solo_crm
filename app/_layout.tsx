@@ -5,6 +5,7 @@ import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect, useState } from 'react'
 import 'react-native-reanimated'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import './global.css'
 
 SplashScreen.preventAutoHideAsync()
@@ -18,7 +19,7 @@ export const AppLayout = () => {
     'SFPro-Italic': require('../assets/fonts/SFPro-LightItalic.otf'),
     'SFPro-ItalicSemibold': require('../assets/fonts/SFPro-SemiBoldItalic.otf'),
   })
-  const { theme } = useTheme()
+  const { colorScheme } = useTheme()
   const [isSplashShown, setIsSplashShown] = useState<boolean>(true)
 
   useEffect(() => {
@@ -39,17 +40,19 @@ export const AppLayout = () => {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        contentStyle: {
-          backgroundColor: theme.bg,
-        },
-      }}
-    >
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(root)" options={{ headerShown: false }} />
-    </Stack>
+    <SafeAreaProvider>
+      <Stack
+        screenOptions={{
+          contentStyle: {
+            backgroundColor: colorScheme === 'dark' ? '#161616' : '#FFF',
+          },
+        }}
+      >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(root)" options={{ headerShown: false }} />
+      </Stack>
+    </SafeAreaProvider>
   )
 }
 
