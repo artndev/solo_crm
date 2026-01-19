@@ -1,5 +1,5 @@
 import { useTheme } from '@/hooks/useTheme'
-import { cn } from '@/lib/utils'
+import { cn, formatDate } from '@/lib/utils'
 import { I_StackItemNotifications } from '@/types'
 import { View } from 'react-native'
 import TypoText from '../(text)/TypoText'
@@ -43,7 +43,7 @@ const StackItemNotifications: React.FC<I_StackItemNotifications> = ({
             className="text-card-date-time"
             darkOverride="text-muted"
           >
-            {date}
+            {formatDate(date)}
           </TypoText>
         </View>
       </View>

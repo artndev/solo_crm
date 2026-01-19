@@ -1,10 +1,16 @@
 import SearchIcon from '@/components/icons/(screen-header)/Search'
+// import { useGradualAnimation } from '@/hooks/useGradualAnimation'
 import { useTheme } from '@/hooks/useTheme'
-import { cn } from '@/lib/utils'
-import { I_SearchBarProps } from '@/types'
+import { cn, compareDates, formatDate } from '@/lib/utils'
+import {
+  I_SearchBarProps,
+  StringKeys,
+  T_BottomSheetControllerMethods,
+  T_FilterButtonMethods,
+} from '@/types'
 import { LegendList } from '@legendapp/list'
 import { useRouter } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import {
   Keyboard,
   Pressable,
@@ -13,60 +19,72 @@ import {
   View,
 } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
+// import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import BottomSheetWithHeader from './(bottom-sheet)/BottomSheetWithHeader'
+import FilterButton from './(bottom-sheet)/FilterButton'
+import CheckboxGroup from './(groups)/CheckboxGroup'
 import TypoText from './(text)/TypoText'
-import ScreenHeader from './ScreenHeader'
 import Back from './icons/(screen-header)/Back'
 import Calendar from './icons/(screen-header)/Calendar'
+import Cross from './icons/(stack)/Cross'
+import ScreenHeader from './ScreenHeader'
 
-const SearchBar = <T,>({
+const SearchBar = <T, K extends StringKeys<T>>({
   flatListData,
   targetField,
+  dateField,
   renderItem,
   withBorder = false,
   className,
   ...props
-}: I_SearchBarProps<T>) => {
+}: I_SearchBarProps<T, K>) => {
   const router = useRouter()
   const insets = useSafeAreaInsets()
   const { colorScheme } = useTheme()
-  const [data, setData] = useState<T[]>(flatListData)
-  const [target, setTarget] = useState<string>('')
+  // const { height } = useGradualAnimation()
+
+  const bottomSheetRef = useRef<T_BottomSheetControllerMethods>(null)
+  const filterButtonRef = useRef<T_FilterButtonMethods>(null)
+
   const [isDatePickerVisible, setDatePickerVisibility] =
     useState<boolean>(false)
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true)
-  }
+  const [target, setTarget] = useState<string>('')
+  const [date, setDate] = useState<Date | undefined>(undefined)
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false)
-  }
+  // const keyboardPadding = useAnimatedStyle(() => {
+  //   return {
+  //     height: height.value,
+  //   }
+  // }, [])
 
-  const handleConfirm = (date: any) => {
-    console.warn('A date has been picked: ', date)
-    hideDatePicker()
-  }
+  const filteredData = useMemo(() => {
+    return flatListData.filter(val => {
+      const targetFieldVal = val[targetField] as string
+      const dateFieldVal = val[dateField] as string
 
-  useEffect(() => {
-    if (target.trim().length === 0) {
-      setData([])
-      return
-    }
+      if (
+        !targetFieldVal
+          .trim()
+          .toLowerCase()
+          .includes(target.trim().toLocaleLowerCase())
+      ) {
+        return false
+      }
 
-    setData(() =>
-      flatListData.filter(val => {
-        const field = val[targetField] as string
+      if (!date) {
+        return true
+      }
 
-        return field.trim().toLowerCase().includes(target.trim().toLowerCase())
-      })
-    )
-  }, [target])
+      return compareDates(dateFieldVal, date)
+    })
+  }, [target, date])
 
   return (
     <View className={cn('flex-1 flex flex-col gap-5', className)} {...props}>
       <ScreenHeader
-        className="gap-5 px-5 pb-5"
+        className="gap-10 px-5 pb-5"
         style={{
           paddingTop: insets.top + 10,
         }}
@@ -91,41 +109,62 @@ const SearchBar = <T,>({
           </>
         }
         secondFloor={
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View
-              className={cn(
-                'flex flex-row items-center w-full min-h-[35px] border border-input rounded-[10px] px-3',
-                colorScheme === 'dark' ? 'border-0 bg-muted-3' : ''
-              )}
-            >
-              <View className="flex flex-row justify-center items-center size-[20px]">
-                <SearchIcon className="text-muted" />
-              </View>
-
-              <TextInput
-                placeholder="Search..."
+          <View className="flex flex-col items-start w-full gap-2">
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View
                 className={cn(
-                  'flex-1 text-md font-sfpro-medium text-default placeholder:text-muted p-3',
-                  colorScheme === 'dark' ? 'text-white' : ''
+                  'flex flex-row items-center w-full min-h-[35px] border border-input rounded-[10px] px-3',
+                  colorScheme === 'dark' ? 'border-0 bg-muted-3' : ''
                 )}
-                onChangeText={setTarget}
-                autoFocus={true}
-              />
-
-              <Pressable
-                className="flex flex-row justify-center items-center size-[20px]"
-                onPress={() => setDatePickerVisibility(prev => !prev)}
               >
-                <Calendar className="text-muted" />
-              </Pressable>
-            </View>
-          </TouchableWithoutFeedback>
+                <View className="flex flex-row justify-center items-center size-[20px]">
+                  <SearchIcon className="text-muted" />
+                </View>
+
+                <TextInput
+                  placeholder="Search..."
+                  className={cn(
+                    'flex-1 text-md font-sfpro-medium text-default placeholder:text-muted p-3',
+                    colorScheme === 'dark' ? 'text-white' : ''
+                  )}
+                  onChangeText={setTarget}
+                  autoFocus={true}
+                />
+
+                <Pressable
+                  className="flex flex-row justify-center items-center size-[20px]"
+                  onPress={() => setDatePickerVisibility(prev => !prev)}
+                >
+                  <Calendar className="text-muted" />
+                </Pressable>
+              </View>
+            </TouchableWithoutFeedback>
+
+            <FilterButton
+              title="Expand"
+              onPress={() => bottomSheetRef.current?.unfold()}
+              ref={filterButtonRef}
+            />
+
+            {date && (
+              <View className="flex flex-row items-center gap-4 w-auto p-3 border border-input rounded-[10px]">
+                <TypoText>{formatDate(date)}</TypoText>
+
+                <Pressable onPress={() => setDate(undefined)}>
+                  <Cross />
+                </Pressable>
+              </View>
+            )}
+          </View>
         }
         withBorder
       />
 
       <LegendList
-        contentContainerClassName="flex-1 px-5"
+        contentContainerClassName="px-5"
+        contentContainerStyle={{
+          paddingBottom: insets.bottom + 10,
+        }}
         ItemSeparatorComponent={() => (
           <View
             className={cn(
@@ -134,11 +173,11 @@ const SearchBar = <T,>({
             )}
           />
         )}
-        data={data}
+        data={filteredData}
         renderItem={renderItem}
         keyExtractor={(_, i) => i.toString()}
         ListEmptyComponent={() =>
-          target.trim().length > 0 && (
+          filteredData.length === 0 && (
             <View className="flex flex-row justify-center items-center w-full">
               <TypoText size="md" weight="medium">
                 Nothing has been found so far {'=('}
@@ -152,13 +191,60 @@ const SearchBar = <T,>({
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
+        onConfirm={date => setDate(date)}
+        onCancel={() => setDatePickerVisibility(false)}
         pickerComponentStyleIOS={{
           height: 200,
           alignSelf: 'center',
         }}
       />
+
+      <BottomSheetWithHeader
+        snapPoints={[500]}
+        ref={bottomSheetRef}
+        title="Filters"
+        onLeftAction={() => bottomSheetRef.current?.fold()}
+        onRightAction={() => bottomSheetRef.current?.fold()}
+      >
+        {/* <RadioButtonGroup
+          radioButtons={[
+            { value: 'Option 1' },
+            { value: 'Option 2' },
+            { value: 'Option 3' },
+          ]}
+          className="gap-10"
+          dotClassname="bg-neon"
+          activeClassname="border-neon"
+          textProps={{
+            weight: 'medium',
+            size: 'md',
+          }}
+          // dividerComponent={<View className="w-full bg-muted h-[1px]" />}
+          defaultValue="Option 1"
+          onChangeValue={val => console.log(val)}
+        /> */}
+
+        <CheckboxGroup
+          checkboxes={[
+            { value: 'Option 1' },
+            { value: 'Option 2' },
+            { value: 'Option 3' },
+          ]}
+          className="gap-10"
+          tickClassname="text-neon"
+          activeClassname="border-neon"
+          textProps={{
+            weight: 'medium',
+            size: 'md',
+          }}
+          // dividerComponent={<View className="w-full bg-muted h-[1px]" />}
+          defaultValues={['Option 1']}
+          onChangeValue={val => console.log(val)}
+          onChangeAmount={val => filterButtonRef.current?.set(val)}
+        />
+
+        {/* <Animated.View style={keyboardPadding} /> */}
+      </BottomSheetWithHeader>
     </View>
   )
 }

@@ -6,6 +6,7 @@ import ScreenHeader from '@/components/ScreenHeader'
 import Stack from '@/components/Stack'
 import { STACK_ITEM_NOTIFICATIONS_DATA } from '@/constants/data'
 import { useTheme } from '@/hooks/useTheme'
+import { formatDate } from '@/lib/utils'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
@@ -56,7 +57,7 @@ const Notifications = () => {
               ([key, val], i) => (
                 <View key={i} className="flex flex-col gap-5">
                   <TypoText weight="semibold" size="md">
-                    {key}
+                    {formatDate(key)}
                   </TypoText>
 
                   <Stack

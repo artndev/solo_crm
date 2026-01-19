@@ -13,7 +13,7 @@ const Search: React.FC<SvgProps> = ({ color, className, ...props }) => {
       fill="none"
       color={(style?.color as ColorValue) || color || '#1A1F35'}
       stroke={'currentColor'}
-      strokeWidth={1.75}
+      strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}

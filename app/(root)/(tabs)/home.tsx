@@ -15,7 +15,7 @@ import SvgBadge from '@/components/icons/SvgBadge'
 import Quickstart from '@/components/Quickstart'
 import ScreenHeader from '@/components/ScreenHeader'
 import Stack from '@/components/Stack'
-import { STACK_ITEM_NOTIFICATIONS_DATA } from '@/constants/data'
+import { DATE, STACK_ITEM_NOTIFICATIONS_DATA } from '@/constants/data'
 import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/lib/utils'
 import { Link } from 'expo-router'
@@ -26,6 +26,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 const Home = () => {
   const insets = useSafeAreaInsets()
   const { colorScheme } = useTheme()
+
+  console.log(STACK_ITEM_NOTIFICATIONS_DATA[DATE], DATE)
 
   return (
     <View className="w-full min-h-full">
@@ -195,9 +197,7 @@ const Home = () => {
 
               <Stack
                 stackItemType="StackItemNotifications"
-                stackItems={
-                  STACK_ITEM_NOTIFICATIONS_DATA['Today, Apr 08, 2020']
-                }
+                stackItems={STACK_ITEM_NOTIFICATIONS_DATA[DATE]}
               />
             </View>
           </View>
