@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { I_CheckboxGroupProps } from '@/types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import TypoText from '../(text)/TypoText'
 import Tick2 from '../icons/(screen-header)/Tick2'
@@ -15,9 +15,26 @@ const CheckboxGroup: React.FC<I_CheckboxGroupProps> = ({
   onChangeValue,
   onChangeAmount,
   className,
+  ref,
   ...props
 }) => {
   const [selected, setSelected] = useState<Set<string>>(new Set(defaultValues))
+
+  const handleAdd = (value: string) =>
+    setSelected(prev => new Set([...prev, value]))
+
+  const handleRemove = (value: string) =>
+    setSelected(prev => new Set(Array.from(prev).filter(val => val !== value)))
+
+  const handleClear = () => setSelected(new Set())
+
+  useImperativeHandle(ref, () => {
+    return {
+      add: (value: string) => handleAdd(value),
+      remove: (value: string) => handleRemove(value),
+      clear: () => handleClear(),
+    }
+  }, [])
 
   useEffect(() => {
     onChangeValue?.(Array.from(selected))
@@ -36,13 +53,11 @@ const CheckboxGroup: React.FC<I_CheckboxGroupProps> = ({
             className="flex flex-row items-center gap-5"
             onPress={() => {
               if (!selected.has(val.value)) {
-                setSelected(prev => new Set([...prev, val.value]))
+                handleAdd(val.value)
                 return
               }
 
-              setSelected(
-                prev => new Set(Array.from(prev).filter(el => el !== val.value))
-              )
+              handleRemove(val.value)
             }}
           >
             <View

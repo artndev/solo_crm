@@ -96,21 +96,6 @@ export interface I_RadioButtonGroupProps extends ViewProps {
   onChangeValue?: (value: string) => void
 }
 
-export interface I_Checkbox {
-  value: string
-}
-
-export interface I_CheckboxGroupProps extends ViewProps {
-  checkboxes: I_Checkbox[]
-  defaultValues: string[]
-  textProps: I_TypoTextProps
-  dividerComponent?: React.ReactElement
-  activeClassname?: string
-  tickClassname?: string
-  onChangeValue?: (values: string[]) => void
-  onChangeAmount?: (amount: number) => void
-}
-
 export interface I_StackItem extends ViewProps {
   Svg: React.ReactElement<SvgProps>
   title: string
@@ -181,4 +166,26 @@ export interface I_BottomSheetWithHeaderProps extends I_BottomSheetController {
   onLeftAction: () => void
   rightCaption?: string
   onRightAction: () => void
+}
+
+export type T_CheckboxGroupMethods = {
+  add: (value: string) => void
+  remove: (value: string) => void
+  clear: () => void
+}
+
+export type I_Checkbox = {
+  value: string
+}
+
+export interface I_CheckboxGroupProps
+  extends ViewProps, RefAttributes<T_CheckboxGroupMethods> {
+  checkboxes: I_Checkbox[]
+  defaultValues: string[]
+  textProps: I_TypoTextProps
+  dividerComponent?: React.ReactElement
+  activeClassname?: string
+  tickClassname?: string
+  onChangeValue?: (values: string[]) => void
+  onChangeAmount?: (amount: number) => void
 }

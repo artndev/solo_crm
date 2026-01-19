@@ -1,11 +1,12 @@
 import SearchIcon from '@/components/icons/(screen-header)/Search'
-// import { useGradualAnimation } from '@/hooks/useGradualAnimation'
+import { useGradualAnimation } from '@/hooks/useGradualAnimation'
 import { useTheme } from '@/hooks/useTheme'
 import { cn, compareDates, formatDate } from '@/lib/utils'
 import {
   I_SearchBarProps,
   StringKeys,
   T_BottomSheetControllerMethods,
+  T_CheckboxGroupMethods,
   T_FilterButtonMethods,
 } from '@/types'
 import { LegendList } from '@legendapp/list'
@@ -19,7 +20,7 @@ import {
   View,
 } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
-// import Animated, { useAnimatedStyle } from 'react-native-reanimated'
+import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import BottomSheetWithHeader from './(bottom-sheet)/BottomSheetWithHeader'
 import FilterButton from './(bottom-sheet)/FilterButton'
@@ -42,10 +43,11 @@ const SearchBar = <T, K extends StringKeys<T>>({
   const router = useRouter()
   const insets = useSafeAreaInsets()
   const { colorScheme } = useTheme()
-  // const { height } = useGradualAnimation()
+  const { height } = useGradualAnimation()
 
   const bottomSheetRef = useRef<T_BottomSheetControllerMethods>(null)
   const filterButtonRef = useRef<T_FilterButtonMethods>(null)
+  const checkboxGroupRef = useRef<T_CheckboxGroupMethods>(null)
 
   const [isDatePickerVisible, setDatePickerVisibility] =
     useState<boolean>(false)
@@ -53,11 +55,13 @@ const SearchBar = <T, K extends StringKeys<T>>({
   const [target, setTarget] = useState<string>('')
   const [date, setDate] = useState<Date | undefined>(undefined)
 
-  // const keyboardPadding = useAnimatedStyle(() => {
-  //   return {
-  //     height: height.value,
-  //   }
-  // }, [])
+  const keyboardPadding = useAnimatedStyle(() => {
+    console.log(height.value)
+
+    return {
+      height: height.value,
+    }
+  }, [])
 
   const filteredData = useMemo(() => {
     return flatListData.filter(val => {
@@ -204,7 +208,11 @@ const SearchBar = <T, K extends StringKeys<T>>({
         ref={bottomSheetRef}
         title="Filters"
         onLeftAction={() => bottomSheetRef.current?.fold()}
-        onRightAction={() => bottomSheetRef.current?.fold()}
+        onRightAction={() => {
+          checkboxGroupRef.current?.clear()
+
+          bottomSheetRef.current?.fold()
+        }}
       >
         {/* <RadioButtonGroup
           radioButtons={[
@@ -225,6 +233,7 @@ const SearchBar = <T, K extends StringKeys<T>>({
         /> */}
 
         <CheckboxGroup
+          ref={checkboxGroupRef}
           checkboxes={[
             { value: 'Option 1' },
             { value: 'Option 2' },
@@ -238,12 +247,12 @@ const SearchBar = <T, K extends StringKeys<T>>({
             size: 'md',
           }}
           // dividerComponent={<View className="w-full bg-muted h-[1px]" />}
-          defaultValues={['Option 1']}
+          defaultValues={[]}
           onChangeValue={val => console.log(val)}
           onChangeAmount={val => filterButtonRef.current?.set(val)}
         />
 
-        {/* <Animated.View style={keyboardPadding} /> */}
+        <Animated.View style={keyboardPadding} />
       </BottomSheetWithHeader>
     </View>
   )

@@ -11,6 +11,7 @@ export const useGradualAnimation = () => {
     {
       onMove: e => {
         'worklet'
+
         height.value =
           e.height > 0 ? Math.max(e.height + OFFSET, totalOffset) : totalOffset
       },
