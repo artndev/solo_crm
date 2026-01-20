@@ -1,7 +1,8 @@
 import SearchIcon from '@/components/icons/(screen-header)/Search'
-import { useGradualAnimation } from '@/hooks/useGradualAnimation'
+import { useDebounce } from '@/hooks/useDebounce'
+import { useFilters } from '@/hooks/useFilters'
 import { useTheme } from '@/hooks/useTheme'
-import { cn, compareDates, formatDate } from '@/lib/utils'
+import { cn, formatDate } from '@/lib/utils'
 import {
   I_SearchBarProps,
   StringKeys,
@@ -11,7 +12,7 @@ import {
 } from '@/types'
 import { LegendList } from '@legendapp/list'
 import { useRouter } from 'expo-router'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Keyboard,
   Pressable,
@@ -20,7 +21,6 @@ import {
   View,
 } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
-import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import BottomSheetWithHeader from './(bottom-sheet)/BottomSheetWithHeader'
 import FilterButton from './(bottom-sheet)/FilterButton'
@@ -43,7 +43,6 @@ const SearchBar = <T, K extends StringKeys<T>>({
   const router = useRouter()
   const insets = useSafeAreaInsets()
   const { colorScheme } = useTheme()
-  const { height } = useGradualAnimation()
 
   const bottomSheetRef = useRef<T_BottomSheetControllerMethods>(null)
   const filterButtonRef = useRef<T_FilterButtonMethods>(null)
@@ -54,36 +53,17 @@ const SearchBar = <T, K extends StringKeys<T>>({
 
   const [target, setTarget] = useState<string>('')
   const [date, setDate] = useState<Date | undefined>(undefined)
-
-  const keyboardPadding = useAnimatedStyle(() => {
-    console.log(height.value)
-
-    return {
-      height: height.value,
-    }
-  }, [])
-
-  const filteredData = useMemo(() => {
-    return flatListData.filter(val => {
-      const targetFieldVal = val[targetField] as string
-      const dateFieldVal = val[dateField] as string
-
-      if (
-        !targetFieldVal
-          .trim()
-          .toLowerCase()
-          .includes(target.trim().toLocaleLowerCase())
-      ) {
-        return false
-      }
-
-      if (!date) {
-        return true
-      }
-
-      return compareDates(dateFieldVal, date)
-    })
-  }, [target, date])
+  const debounceValue = useDebounce({
+    value: {
+      [targetField]: target,
+      [dateField]: date,
+    } as Partial<Record<StringKeys<T> & keyof T, number | string | Date>>,
+    delay: 500,
+  })
+  const filteredData = useFilters<T>({
+    data: flatListData,
+    targetFields: debounceValue,
+  })
 
   return (
     <View className={cn('flex-1 flex flex-col gap-5', className)} {...props}>
@@ -137,7 +117,17 @@ const SearchBar = <T, K extends StringKeys<T>>({
 
                 <Pressable
                   className="flex flex-row justify-center items-center size-[20px]"
-                  onPress={() => setDatePickerVisibility(prev => !prev)}
+                  onPress={() => {
+                    Keyboard.dismiss()
+
+                    if (checkboxGroupRef.current?.size === 0) {
+                      checkboxGroupRef.current?.clear()
+                    }
+
+                    bottomSheetRef.current?.fold()
+
+                    setDatePickerVisibility(true)
+                  }}
                 >
                   <Calendar className="text-muted" />
                 </Pressable>
@@ -146,7 +136,10 @@ const SearchBar = <T, K extends StringKeys<T>>({
 
             <FilterButton
               title="Expand"
-              onPress={() => bottomSheetRef.current?.unfold()}
+              onPress={() => {
+                Keyboard.dismiss()
+                bottomSheetRef.current?.unfold()
+              }}
               ref={filterButtonRef}
             />
 
@@ -204,13 +197,11 @@ const SearchBar = <T, K extends StringKeys<T>>({
       />
 
       <BottomSheetWithHeader
-        snapPoints={[500]}
         ref={bottomSheetRef}
         title="Filters"
         onLeftAction={() => bottomSheetRef.current?.fold()}
         onRightAction={() => {
           checkboxGroupRef.current?.clear()
-
           bottomSheetRef.current?.fold()
         }}
       >
@@ -251,8 +242,6 @@ const SearchBar = <T, K extends StringKeys<T>>({
           onChangeValue={val => console.log(val)}
           onChangeAmount={val => filterButtonRef.current?.set(val)}
         />
-
-        <Animated.View style={keyboardPadding} />
       </BottomSheetWithHeader>
     </View>
   )

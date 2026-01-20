@@ -25,7 +25,7 @@ const RadioButtonGroup: React.FC<I_RadioButtonGroupProps> = ({
       {...props}
     >
       {radioButtons.map((val, i) => (
-        <>
+        <React.Fragment key={i}>
           <Pressable
             key={i}
             className="flex flex-row items-center gap-5"
@@ -53,7 +53,7 @@ const RadioButtonGroup: React.FC<I_RadioButtonGroupProps> = ({
           </Pressable>
 
           {i !== radioButtons.length - 1 && dividerComponent}
-        </>
+        </React.Fragment>
       ))}
     </View>
   )

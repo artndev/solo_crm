@@ -40,6 +40,17 @@
           "backgroundColor": "#FFF"
         }
       ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "reactNativeReleaseLevel": "experimental"
+          },
+          "ios": {
+            "reactNativeReleaseLevel": "experimental"
+          }
+        }
+      ],
       "@react-native-community/datetimepicker"
     ],
     "experiments": {

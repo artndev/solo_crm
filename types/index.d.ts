@@ -145,6 +145,7 @@ export type T_BottomSheetControllerMethods = {
 
 export interface I_BottomSheetController
   extends BottomSheetProps, RefAttributes<T_BottomSheetControllerMethods> {
+  keyboardHeight?: number
   className?: string
 }
 
@@ -172,6 +173,7 @@ export type T_CheckboxGroupMethods = {
   add: (value: string) => void
   remove: (value: string) => void
   clear: () => void
+  size: number
 }
 
 export type I_Checkbox = {
@@ -188,4 +190,14 @@ export interface I_CheckboxGroupProps
   tickClassname?: string
   onChangeValue?: (values: string[]) => void
   onChangeAmount?: (amount: number) => void
+}
+
+export interface I_useFilters<T> {
+  data: T[]
+  targetFields: Partial<Record<StringKeys<T> & keyof T, number | string | Date>>
+}
+
+export interface I_useDebounce<T> {
+  value: T
+  delay: number
 }

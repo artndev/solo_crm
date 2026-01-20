@@ -33,8 +33,9 @@ const CheckboxGroup: React.FC<I_CheckboxGroupProps> = ({
       add: (value: string) => handleAdd(value),
       remove: (value: string) => handleRemove(value),
       clear: () => handleClear(),
+      size: selected.size,
     }
-  }, [])
+  }, [selected])
 
   useEffect(() => {
     onChangeValue?.(Array.from(selected))
@@ -47,9 +48,8 @@ const CheckboxGroup: React.FC<I_CheckboxGroupProps> = ({
       {...props}
     >
       {checkboxes.map((val, i) => (
-        <>
+        <React.Fragment key={i}>
           <Pressable
-            key={i}
             className="flex flex-row items-center gap-5"
             onPress={() => {
               if (!selected.has(val.value)) {
@@ -84,7 +84,7 @@ const CheckboxGroup: React.FC<I_CheckboxGroupProps> = ({
           </Pressable>
 
           {i !== checkboxes.length - 1 && dividerComponent}
-        </>
+        </React.Fragment>
       ))}
     </View>
   )

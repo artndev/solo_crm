@@ -16,7 +16,7 @@ const BottomSheetWithHeader: React.FC<I_BottomSheetWithHeaderProps> = ({
   ...props
 }) => {
   return (
-    <BottomSheetController className={cn('gap-10', className)} {...props}>
+    <BottomSheetController className={cn('gap-5', className)} {...props}>
       <View className="w-full border-b border-input p-5">
         <View className="flex flex-row justify-between items-center w-full">
           <Pressable onPress={onLeftAction}>
@@ -35,7 +35,7 @@ const BottomSheetWithHeader: React.FC<I_BottomSheetWithHeaderProps> = ({
         </View>
       </View>
 
-      <View className="flex-1 px-5 pb-5">{children}</View>
+      <View className="flex-1 px-5">{children}</View>
     </BottomSheetController>
   )
 }
